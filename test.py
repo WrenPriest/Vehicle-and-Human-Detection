@@ -1,7 +1,7 @@
 # Imports
 
 from numpy.lib.utils import source
-from helper_functions.object_detection import detect
+from helper_functions.object_detection import detect, object_detection
 import os
 import six.moves.urllib as urllib
 import sys
@@ -34,6 +34,26 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 num_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+
+# ret = True
+
+# while ret is True:
+#     ret, current_frame = cap.read()
+#     object_detection(current_frame)
+
+
+while(cap.isOpened()):
+    ret, frame = cap.read()
+    if ret==True:
+         # frame = cv2.flip(frame,0)
+         # write the flipped frame
+        out.write(frame)
+        cv2.imshow('frame',frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+             break
+     else:
+        break
+
 
 
 
