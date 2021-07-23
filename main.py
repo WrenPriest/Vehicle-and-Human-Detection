@@ -20,13 +20,13 @@ from io import StringIO
 from PIL import Image
 
 import helper_functions
+import drawing
 from model.py import load_model
-from drawing.py import draw_roi
+from counting.py import counting
 
 
 load_model()
-
-
+total_vehicles_detected = 0
 
 
 # input video
@@ -55,15 +55,18 @@ while cap.isOpened():
     ret, current_frame = cap.read()
     if ret==True:
         #object detection helper function
-        (num_detected,classes,boxes,box_centers) = object_detection(current_frame,ROI_line)
+        (num_detect,classes,boxes,box_centers) = object_detection(current_frame,ROI_line)
+
+        #counting helper function
+        (total_vehicles_detected,is_vehicle_detected) = counting(box_centers,width)
 
         #drawing helper functions
-        draw_roi(current_frame,width,height,is_vehicle_detected,ROI_line)
-        draw_detection_boxes(boxes,current_frame)
+        drawing.draw_roi(current_frame,width,height,is_vehicle_detected,ROI_line)
+        drawing.draw_detection_boxes(boxes,current_frame)
         
-        #counting helper function
+
         output.write(current_frame)
-        cv2.imshow('frame',current_frame)
+        cv2.imshow('framwdite',current_frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
         else:
