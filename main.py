@@ -21,6 +21,7 @@ from PIL import Image
 
 import helper_functions
 from model.py import load_model
+from drawing.py import draw_roi
 
 
 load_model()
@@ -40,7 +41,8 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 num_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-ROI_Line = ""
+is_vehicle_detected = False
+ROI_line = ""
 
 
 
@@ -49,11 +51,16 @@ ROI_Line = ""
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 output= cv2.VideoWriter(source_video.split(".")[0]+'_output.mp4', fourcc, fps, (width, height))
 
-while(cap.isOpened()):
+while cap.isOpened():
     ret, current_frame = cap.read()
     if ret==True:
-        object_detection(current_frame)
-        #drawing helper function
+        #object detection helper function
+        (num_detected,classes,boxes,box_centers) = object_detection(current_frame,ROI_line)
+
+        #drawing helper functions
+        draw_roi(current_frame,width,height,is_vehicle_detected,ROI_line)
+        draw_detection_boxes(boxes,current_frame)
+        
         #counting helper function
         output.write(current_frame)
         cv2.imshow('frame',current_frame)
