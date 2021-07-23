@@ -55,7 +55,7 @@ while cap.isOpened():
     ret, current_frame = cap.read()
     if ret==True:
         #object detection helper function
-        (boxes,box_centers) = object_detection(current_frame,ROI_line)
+        (num_detected,classes,boxes,box_centers) = object_detection(current_frame,ROI_line)
 
         #drawing helper functions
         draw_roi(current_frame,width,height,is_vehicle_detected,ROI_line)
