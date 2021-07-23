@@ -18,14 +18,8 @@ from collections import defaultdict
 from io import StringIO
 from PIL import Image
 
-# Object detection imports
-from utils import label_map_util
-from utils import visualization_utils as vis_util
-
-
-
 # input video
-source_video = 'right-left.mp4'
+source_video = 'input_video.mp4'
 cap = cv2.VideoCapture(source_video)
 
 

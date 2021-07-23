@@ -86,6 +86,9 @@ Pillow (reference API) or cv2.rectangle (new implementation from scratch)
     )
 ```
 
+
+
+
 #### Counter Text
 
 Could be fine-tuned to be more dynamic and not be set to precise pixels
