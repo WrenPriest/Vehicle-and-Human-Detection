@@ -63,6 +63,7 @@ while cap.isOpened():
         #drawing helper functions
         drawing.draw_roi(current_frame,width,height,is_vehicle_detected,ROI_line)
         drawing.draw_detection_boxes(boxes,current_frame)
+        drawing.draw_counter(current_frame,total_vehicles_detected)
         
 
         output.write(current_frame)

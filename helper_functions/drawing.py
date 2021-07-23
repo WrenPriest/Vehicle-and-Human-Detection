@@ -22,3 +22,15 @@ def draw_detection_boxes(boxes,current_frame):
         y1 *= H
         y2 *= H
         cv2.rectangle(current_frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
+def draw_counter(current_frame,total_vehicles_detected):
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    cv2.putText(
+        current_frame,
+        'Detected Vehicles: ' + str(total_vehicles_detected),
+        (10, 35),
+        font,
+        0.8,
+        (0, 0xFF, 0xFF),
+        2,
+        cv2.FONT_HERSHEY_SIMPLEX,
+        )
