@@ -40,6 +40,10 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 num_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+ROI_Line = ""
+
+
+
 
 #output video
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
