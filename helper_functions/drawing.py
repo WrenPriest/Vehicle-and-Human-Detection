@@ -1,4 +1,7 @@
-def draw_roi(current_frame):
+import cv2
+
+
+def draw_roi(current_frame,width,height,is_vehicle_detected,ROI_Line):
     if ROI_Line == 'vertical':
         roi_start = (int(width/2), 0)
         rot_end = (int(width/2), height)
@@ -10,3 +13,13 @@ def draw_roi(current_frame):
         cv2.line(current_frame, roi_start, roi_end, (0, 0, 0xFF), 5)
     else:
         cv2.line(current_frame, roi_start, roi_end, (0, 0xFF, 0), 5)
+
+def draw_detection_boxes(boxes,current_frame):
+    H, W, _ = current_frame.shape
+    for x in range(boxes):
+        y1, x1, y2, x2 = boxes[x]
+        x1 *= W 
+        x2 *= W 
+        y1 *= H
+        y2 *= H
+        cv2.rectangle(current_frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
