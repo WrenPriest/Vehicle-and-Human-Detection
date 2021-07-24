@@ -48,4 +48,5 @@ while cap.isOpened():
             break
     else:
         cap.release()
+        output.release()
         break
