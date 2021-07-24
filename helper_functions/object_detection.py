@@ -1,4 +1,6 @@
-def object_detection(current_frame):
+import tensorflow as tf
+
+def object_detection(current_frame, model, ROI_line, height, width):
     # convert to tensor for model
     frame_tensor = tf.convert_to_tensor([current_frame], dtype=tf.uint8)
     # run frame_tensor through model
@@ -26,7 +28,7 @@ def object_detection(current_frame):
             y1, x1, y2, x2 = box
             x1 *= width
             x2 *= width
-            middle = int((y1 + y2) / 2)
+            middle = int((x1 + x2) / 2)
             box_centers.append(middle)
 
     return num_detect, classes, boxes, box_centers
