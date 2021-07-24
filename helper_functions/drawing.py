@@ -1,5 +1,6 @@
 import cv2
 
+
 def draw_roi(current_frame, width, height, is_vehicle_detected, ROI_Line):
     if ROI_Line == 'vertical':
         roi_start = (int(width / 2), 0)

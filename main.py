@@ -22,7 +22,8 @@ ROI_line = "vertical"  # vertical or horizontal
 
 # output video
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-output = cv2.VideoWriter(source_video.split(".")[0] + '_output.mp4', fourcc, fps, (width, height))
+# output = cv2.VideoWriter(source_video.split(".")[0] + '_output.mp4', fourcc, fps, (width, height))
+output = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
 
 while cap.isOpened():
     ret, current_frame = cap.read()

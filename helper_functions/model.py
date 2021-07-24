@@ -36,7 +36,6 @@ def load_model():
         'detection_boxes:0',
     )
 
-
     def wrap_graph(graph_def, inputs, outputs, print_graph=False):
         wrapped = tf.compat.v1.wrap_function(
             lambda: tf.compat.v1.import_graph_def(graph_def, name=""), [])
@@ -45,11 +44,11 @@ def load_model():
             tf.nest.map_structure(wrapped.graph.as_graph_element, inputs),
             tf.nest.map_structure(wrapped.graph.as_graph_element, outputs))
 
-
     model = wrap_graph(graph_def=graph_def,
                        inputs=["image_tensor:0"],
                        outputs=outputs)
     return model
+
 
 # Object detection dictionary
 labels = {
