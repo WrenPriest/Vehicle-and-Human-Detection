@@ -12,7 +12,7 @@ def counting(box_centers, classes, width, counter):
                 is_vehicle_detected = False
         elif classes[i] == 1:
             if box_centers[i] in range(int(width / 2 - .003 * width),
-                                       int(width / 2 + .003 * width)):
+                                       int(width / 2 + .005 * width)):
                 counter += 1
                 is_vehicle_detected = True
             else:
