@@ -8,7 +8,7 @@ from helper_functions import drawing
 model, labels = load_model()
 
 # input video
-source_video = 'human_test.mp4'
+source_video = 'human-test.mp4'
 cap = cv2.VideoCapture(source_video)
 
 # Variables
