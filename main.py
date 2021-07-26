@@ -5,10 +5,10 @@ from helper_functions.object_detection import object_detection
 from helper_functions.counting import counting
 from helper_functions import drawing
 
-model = load_model()
+model, labels = load_model()
 
 # input video
-source_video = 'input_video.mp4'
+source_video = 'human_test.mp4'
 cap = cv2.VideoCapture(source_video)
 
 # Variables
@@ -39,7 +39,7 @@ while cap.isOpened():
 
         # drawing helper functions
         drawing.draw_roi(current_frame, width, height, is_vehicle_detected, ROI_line)
-        drawing.draw_detection_boxes(current_frame, num_detect, boxes)
+        drawing.draw_detection_boxes(current_frame, num_detect, boxes, labels, classes)
         drawing.draw_counter(current_frame, counter)
 
         output.write(current_frame)
