@@ -19,17 +19,17 @@ def object_detection(current_frame, model, ROI_line, height, width):
         for x in range(num_detect):
             box = boxes[x]
             y1, x1, y2, x2 = box
-            y1 *= height
-            y2 *= height
-            middle = int((y1 + y2) / 2)
+            x1 *= width
+            x2 *= width
+            middle = int((x1 + x2) / 2)
             box_centers.append(middle)
     else:
         for x in range(num_detect):
             box = boxes[x]
             y1, x1, y2, x2 = box
-            x1 *= width
-            x2 *= width
-            middle = int((x1 + x2) / 2)
+            y1 *= height
+            y2 *= height
+            middle = int((y1 + y2) / 2)
             box_centers.append(middle)
 
     return num_detect, classes, boxes, box_centers
