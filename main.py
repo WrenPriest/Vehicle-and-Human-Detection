@@ -8,7 +8,7 @@ from helper_functions import drawing
 model, labels = load_model()
 
 # input video
-source_video = 'human-test.mp4'
+source_video = 'test.mp4'
 cap = cv2.VideoCapture(source_video)
 
 # Variables
@@ -25,6 +25,7 @@ fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 # output = cv2.VideoWriter(source_video.split(".")[0] + '_output.mp4', fourcc, fps, (width, height))
 output = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
 
+is_vehicle_detected = False
 while cap.isOpened():
     ret, current_frame = cap.read()
     if ret is True:
@@ -35,7 +36,8 @@ while cap.isOpened():
         (num_detect, classes, boxes, box_centers) = object_detection(current_frame, model, ROI_line, height, width)
 
         # counting helper function
-        (counter, is_vehicle_detected) = counting(box_centers, classes, width, counter)
+        if ticker % 2 == 0:
+            (counter, is_vehicle_detected) = counting(box_centers, classes, width, counter)
 
         # drawing helper functions
         drawing.draw_roi(current_frame, width, height, is_vehicle_detected, ROI_line)
