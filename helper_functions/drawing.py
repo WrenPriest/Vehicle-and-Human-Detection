@@ -15,7 +15,7 @@ def draw_roi(current_frame, width, height, is_vehicle_detected, ROI_Line):
         cv2.line(current_frame, roi_start, roi_end, (0, 0xFF, 0), 5)
 
 
-def draw_detection_boxes(current_frame, num_detect, boxes):
+def draw_detection_boxes(current_frame, num_detect, boxes, labels, classes):
     H, W, _ = current_frame.shape
     for x in range(num_detect):
         y1, x1, y2, x2 = boxes[x]
@@ -24,6 +24,9 @@ def draw_detection_boxes(current_frame, num_detect, boxes):
         y1 *= H
         y2 *= H
         cv2.rectangle(current_frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
+        label = labels[classes[x]]
+        cv2.putText(current_frame, label, (int(x1), int(y2 + 30)),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, [0, 0, 255], 2)
 
 
 def draw_counter(current_frame, counter):
