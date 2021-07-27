@@ -20,10 +20,10 @@ if choice == 'n':
     if (ROI_ORIENTATION != 'vertical' and ROI_ORIENTATION!= 'horizontal'):
         ROI_ORIENTATION = input ("Please enter a valid ROI orientation(horizontal or vertical): \n")
     vehicle_sensitivity = int(input("Enter custom vehicle sensitivity value: \n"))
-    if type(vehicle_sensitivity) != int or vehicle_sensitivity <0:
+    if type(vehicle_sensitivity) != int or vehicle_sensitivity not in range(0,1):
         vehicle_sensitivity = int(input("Enter a valid vehicle sensitivity value: \n"))
     pedestrian_sensitivity =int(input("Enter custom pedestrian sensitivity value: \n"))
-    if type(pedestrian_sensitivity) != int or pedestrian_sensitivity < 0:
+    if type(pedestrian_sensitivity) != int or pedestrian_sensitivity not in range(0,1):
         pedestrian_sensitivity =int(input("Enter a valid pedestrian sensitivity value: \n"))
 else:
     ROI_ORIENTATION = 'vertical'
