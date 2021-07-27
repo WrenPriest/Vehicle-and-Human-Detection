@@ -17,14 +17,14 @@ print("Specify if the program should use default values for the detection variab
 choice = input()
 if choice == 'n':
     ROI_ORIENTATION = input("Enter desired ROI orientation (horizontal or vertical): \n")
-    if (ROI_ORIENTATION != 'vertical' and ROI_ORIENTATION!= 'horizontal'):
+    while (ROI_ORIENTATION != 'vertical' and ROI_ORIENTATION!= 'horizontal'):
         ROI_ORIENTATION = input ("Please enter a valid ROI orientation(horizontal or vertical): \n")
-    vehicle_sensitivity = int(input("Enter custom vehicle sensitivity value: \n"))
-    if type(vehicle_sensitivity) != int or vehicle_sensitivity not in range(0,1):
-        vehicle_sensitivity = int(input("Enter a valid vehicle sensitivity value: \n"))
-    pedestrian_sensitivity =int(input("Enter custom pedestrian sensitivity value: \n"))
-    if type(pedestrian_sensitivity) != int or pedestrian_sensitivity not in range(0,1):
-        pedestrian_sensitivity =int(input("Enter a valid pedestrian sensitivity value: \n"))
+    vehicle_sensitivity = float(input("Enter custom vehicle sensitivity value: \n"))
+    while vehicle_sensitivity < 0 or vehicle_sensitivity >1:
+        vehicle_sensitivity = float(input("Enter a valid vehicle sensitivity value: \n"))
+    pedestrian_sensitivity =float(input("Enter custom pedestrian sensitivity value: \n"))
+    while pedestrian_sensitivity < 0 or pedestrian_sensitivity > 1:
+        pedestrian_sensitivity =float(input("Enter a valid pedestrian sensitivity value: \n"))
 else:
     ROI_ORIENTATION = 'vertical'
     vehicle_sensitivity = 0.02
