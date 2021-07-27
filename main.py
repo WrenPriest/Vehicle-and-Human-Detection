@@ -17,7 +17,7 @@ print("Specify if the program should use default values for the detection variab
 choice = input()
 if choice == 'n':
     ROI_ORIENTATION = input("Enter desired ROI orientation (horizontal or vertical): \n")
-    if (ROI_ORIENTATION != 'vertical' or ROI_ORIENTATION!= 'horizontal'):
+    if (ROI_ORIENTATION != 'vertical' and ROI_ORIENTATION!= 'horizontal'):
         ROI_ORIENTATION = input ("Please enter a valid ROI orientation(horizontal or vertical): \n")
     vehicle_sensitivity = int(input("Enter custom vehicle sensitivity value: \n"))
     if type(vehicle_sensitivity) != int or vehicle_sensitivity <0:
