@@ -47,19 +47,19 @@ num_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 ticker = 0
 vehicle_counter = 0
 pedestrian_counter = 0
+is_vehicle_detected = False
+
+if ROI_ORIENTATION == 'horizontal':
+    parameter = height
+else:
+    parameter = width
 
 # output video
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 output = cv2.VideoWriter(source_video.split(".")[0] + '_output.mp4', fourcc, fps, (width, height))
 # output = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
 
-# Command line parameters:
-# ROI_orientation = horizontal/vertical
-# vehicle_sensitivity = 0.02
-# pedestrian_sensitivity = 0.001
-# Change ROI_line variable to ROI_orientation
 
-is_vehicle_detected = False
 while cap.isOpened():
     ret, current_frame = cap.read()
     if ret is True:
@@ -73,7 +73,7 @@ while cap.isOpened():
         # counting helper function
         if ticker % 2 == 0:
             (vehicle_counter, pedestrian_counter, is_vehicle_detected) = \
-                counting(box_centers, classes, width, vehicle_counter, pedestrian_counter,
+                counting(box_centers, classes, parameter, vehicle_counter, pedestrian_counter,
                          vehicle_sensitivity, pedestrian_sensitivity)
 
         # drawing helper functions
@@ -82,7 +82,7 @@ while cap.isOpened():
         drawing.draw_counter(current_frame, vehicle_counter, pedestrian_counter)
 
         output.write(current_frame)
-        # uncomment for debugging
+        # uncomment for debugging or sensitivity testing
         # cv2.imshow('debugging', current_frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
