@@ -18,26 +18,20 @@ def draw_roi(current_frame, width, height, is_vehicle_detected, ROI_Line):
 def draw_detection_boxes(current_frame, num_detect, boxes, labels, classes):
     H, W, _ = current_frame.shape
     for x in range(num_detect):
-        y1, x1, y2, x2 = boxes[x]
-        x1 *= W
-        x2 *= W
-        y1 *= H
-        y2 *= H
-        cv2.rectangle(current_frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
-        label = labels[classes[x]]
-        cv2.putText(current_frame, label, (int(x1), int(y2 + 30)),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, [0, 0, 255], 2)
+        if classes[x] in [1, 3, 6, 8]:
+            y1, x1, y2, x2 = boxes[x]
+            x1 *= W
+            x2 *= W
+            y1 *= H
+            y2 *= H
+            cv2.rectangle(current_frame, (int(x1), int(y1)), (int(x2), int(y2)), (0, 0, 255), 2)
+            label = labels[classes[x]]
+            cv2.putText(current_frame, label, (int(x1), int(y2 + 30)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, [0, 0, 255], 2)
 
 
-def draw_counter(current_frame, counter):
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(
-        current_frame,
-        'Detected Vehicles: ' + str(counter),
-        (10, 35),
-        font,
-        0.8,
-        (0, 0xFF, 0xFF),
-        2,
-        cv2.FONT_HERSHEY_SIMPLEX,
-    )
+def draw_counter(current_frame, vehicle_counter, pedestrian_counter):
+    cv2.putText(current_frame, 'Detected Vehicles: ' + str(vehicle_counter), (10, 35),
+                cv2.FONT_HERSHEY_SIMPLEX, 1, [0, 255, 255], 2)
+    cv2.putText(current_frame, 'Detected Pedestrians: ' + str(pedestrian_counter), (10, 70),
+                cv2.FONT_HERSHEY_SIMPLEX, 1, [0, 255, 255], 2)
