@@ -4,6 +4,7 @@ from helper_functions.model import load_model
 from helper_functions.object_detection import object_detection
 from helper_functions.counting import counting
 from helper_functions import drawing
+
 # Command line parameters:
 # ROI_orientation = horizontal/vertical
 # vehicle_sensitivity = 0.02
@@ -11,28 +12,34 @@ from helper_functions import drawing
 # Change ROI_line variable to ROI_orientation
 
 
-#Getting key global detection variables
+# Getting key global detection variables
 
 print("Specify if the program should use default values for the detection variables (y,n): ")
 choice = input()
 if choice == 'n':
     ROI_ORIENTATION = input("Enter desired ROI orientation (horizontal or vertical): \n")
-    while (ROI_ORIENTATION != 'vertical' and ROI_ORIENTATION!= 'horizontal'):
-        ROI_ORIENTATION = input ("Please enter a valid ROI orientation(horizontal or vertical): \n")
-    vehicle_sensitivity = float(input("Enter custom vehicle sensitivity value: \n"))
-    while vehicle_sensitivity < 0 or vehicle_sensitivity >1:
-        vehicle_sensitivity = float(input("Enter a valid vehicle sensitivity value: \n"))
-    pedestrian_sensitivity =float(input("Enter custom pedestrian sensitivity value: \n"))
-    while pedestrian_sensitivity < 0 or pedestrian_sensitivity > 1:
-        pedestrian_sensitivity =float(input("Enter a valid pedestrian sensitivity value: \n"))
+    while ROI_ORIENTATION != 'vertical' and ROI_ORIENTATION != 'horizontal':
+        ROI_ORIENTATION = input("Please enter a valid ROI orientation(horizontal or vertical): \n")
+    while True:
+        try:
+            vehicle_sensitivity = float(input("Enter custom vehicle sensitivity value: \n"))
+        except ValueError:
+            print("Vehicle sensitivity value must be a float between 0 and 1! \n")
+            vehicle_sensitivity = 2
+        if 0 <= vehicle_sensitivity <= 1:
+            break
+    while True:
+        try:
+            pedestrian_sensitivity = float(input("Enter custom pedestrian sensitivity value: \n"))
+        except ValueError:
+            print("Pedestrian sensitivity value must be a float between 0 and 1! \n")
+            pedestrian_sensitivity = 2
+        if 0 <= pedestrian_sensitivity <= 1:
+            break
 else:
     ROI_ORIENTATION = 'vertical'
     vehicle_sensitivity = 0.02
     pedestrian_sensitivity = 0.004
-
-
-
-
 
 model, labels = load_model()
 
@@ -53,7 +60,6 @@ fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 # output = cv2.VideoWriter(source_video.split(".")[0] + '_output.mp4', fourcc, fps, (width, height))
 output = cv2.VideoWriter('output.mp4', fourcc, fps, (width, height))
 
-
 # Command line parameters:
 # ROI_orientation = horizontal/vertical
 # vehicle_sensitivity = 0.02
@@ -68,11 +74,13 @@ while cap.isOpened():
         # progress ticker
         print(f"Processing frame {ticker} of {num_frames}")
         # object detection helper function
-        (num_detect, classes, boxes, box_centers) = object_detection(current_frame, model, ROI_ORIENTATION, height, width)
+        (num_detect, classes, boxes, box_centers) = object_detection(current_frame, model, ROI_ORIENTATION, height,
+                                                                     width)
 
         # counting helper function
         if ticker % 2 == 0:
-            (counter, is_vehicle_detected) = counting(box_centers, classes, width, counter,vehicle_sensitivity,pedestrian_sensitivity)
+            (counter, is_vehicle_detected) = counting(box_centers, classes, width, counter, vehicle_sensitivity,
+                                                      pedestrian_sensitivity)
 
         # drawing helper functions
         drawing.draw_roi(current_frame, width, height, is_vehicle_detected, ROI_ORIENTATION)
@@ -80,7 +88,6 @@ while cap.isOpened():
         drawing.draw_counter(current_frame, counter)
 
         output.write(current_frame)
-        # cv2.imshow('framwdite', current_frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     else:
