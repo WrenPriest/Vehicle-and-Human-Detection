@@ -8,6 +8,7 @@ Uses a cv2 while ret is True loop to process entire video
 - call drawing functions (ROI line, bounding boxes, counter text)
 - return output video
 
+
 ### Command Line Interface
 
 In the main directory, run main.py then answer all prompts.
@@ -17,6 +18,9 @@ You can rename the source video in main.py to your own input.
 ### Input Video Requirements
 
 Input must be 30 FPS for accurate results. Lower resolution videos process signficantly faster.
+
+### Supported Python and Tensorflow Versions
+The program was implemented running Python 3.8.10 and Tensorflow version 2.4
 
 ## **License Information**
 
